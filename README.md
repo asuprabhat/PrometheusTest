@@ -22,32 +22,6 @@ The following packages will be installed as part of image:
 * prometheus_client
 
 
-This service can be accessed via any endpoint address with HTTP GET request, including `/metrics`, e.g. https://example.com/metrics.
-
-When the endpoint is accessed, this service checks the following two external URLs and return 4 metrics in [Prometheus format](https://prometheus.io/docs/instrumenting/exposition_formats/#text-format-example).
-* https://httpstat.us/503
-* https://httpstat.us/200
-
-There are two metrics for each URL:
-* Whether the URL is up and running
-* The response time in milliseconds
-
-A response with 200 status code is considered as up and running, while any other response status code, including 503, are used to indicate the service is down (or attention is needed).
-
-Below is an example of the response:
-```
-# HELP sample_external_url_up URL Up
-# TYPE sample_external_url_up gauge
-sample_external_url_up{url="https://httpstat.us/503"} 0.0
-sample_external_url_up{url="https://httpstat.us/200"} 1.0
-# HELP sample_external_url_response_ms Response Time
-# TYPE sample_external_url_response_ms gauge
-sample_external_url_response_ms{url="https://httpstat.us/503"} 298.56300354003906
-sample_external_url_response_ms{url="https://httpstat.us/200"} 306.61916732788086
-```
-
-See also: [Prometheus](https://prometheus.io/)
-
 ## Docker File  and Docker Image
 ```
 FROM python:3.9-alpine
@@ -101,7 +75,8 @@ Below command deploys python service to Kubernetes cluster
 kubectl apply -f deployment.yaml
 ```
 
-This service can be accessed on kubernetes cluster by accessing python-service CLUSTERIP endpoint `/metrics`, e.g. https://CLUSTERIP/metrics
+This service can be accessed on kubernetes cluster by accessing python-service CLUSTERIP endpoint `/metrics`, e.g. curl http://CLUSTERIP/metrics
+
 Below figure shows the output of the service 
 ![Prometheus Metric Output](Screenshots/prometheus_metric_output.JPG)
 
@@ -126,4 +101,3 @@ The following figure shows a simple query on the Prometheus server:
 
 The following figure visualizes the metrics in Grafana:
 ![Grafana Dashboard](Screenshots/sample_external_url_grafana.JPG)
-
