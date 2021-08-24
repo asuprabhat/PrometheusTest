@@ -60,13 +60,6 @@ docker run -dit -p 8080:80 qiuosier/prometheus_metrics
 ```
 This command maps the service to port 8080 on `localhost`. Once the docker image is running, the metrics will be available at http://localhost:8080
 
-## Running the Service
-This service can be started by the following command:
-```
-python app.py
-```
-By default, there will be a 1 second delay between two subsequent uptime check.
-
 ## Kubernetes Deployment Specifications
 Python service is deployed using **deployment.yaml** file, which contains deployment specifications. Python Service is exposed as ClusterIP Kubernetes Service *python-service*
  
