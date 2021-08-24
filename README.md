@@ -1,8 +1,9 @@
 # Demo Prometheus Metric Monitoring using python service 
 
-This is a URL availability python service metrics can be deployed on Kubernetes Cluster.
+This is a URL availability check using python service, can be deployed on Kubernetes Cluster.
 
 This Demo Python service access 2 URLs mentioned below, check if the URLs are up and get respective response times of the URL.
+
 ### URL 
 * https://httpstat.us/503
 * https://httpstat.us/200
@@ -33,7 +34,9 @@ WORKDIR /
 ENTRYPOINT ["python"]
 CMD ["/promtest.py"]
 ```
-Docker Image is based on python:3.9-alpine. HTTP Port 80 is exposed for the service. 
+Docker Image is based on python:3.9-alpine. 
+
+HTTP Port 80 is exposed for the service. 
 
 python is ENTRYPOINT to the docker image and executes promtest.py python code to render URL response time and status codes in prometheus format. 
 Below is the sample response format 
